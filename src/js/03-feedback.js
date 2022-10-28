@@ -1,7 +1,7 @@
 const textEmail = document.querySelector("input");
 const textMassege = document.querySelector("textarea");
 const form = document.querySelector(".feedback-form");
-const formLocalStorage = [];
+const formLocalStorage = {};
 
 form.addEventListener ('input', onInputForm);
 form.addEventListener ('submit', onSubmitForm);
@@ -14,13 +14,14 @@ function onSubmitForm() {
 
 function onInputForm() {    
     
-    formLocalStorage[0]=textEmail.value;
-    formLocalStorage[1]=textMassege.value;
-    localStorage.setItem("feedback-form-state",formLocalStorage);
+    formLocalStorage.email=textEmail.value;
+    formLocalStorage.massege=textMassege.value;
+    localStorage.setItem("feedback-form-state",JSON.stringify(formLocalStorage));
    
 };
 if (localStorage.getItem("feedback-form-state")) {
-    textEmail.value=localStorage.getItem("feedback-form-state");
-    textMassege.value=localStorage.getItem("feedback-form-state");
+    const a = localStorage.getItem("feedback-form-state");
+    textEmail.value=JSON.parse(a).email;
+    textMassege.value=JSON.parse(a).massege;
    
 }
