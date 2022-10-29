@@ -3,25 +3,27 @@ const textMassege = document.querySelector("textarea");
 const form = document.querySelector(".feedback-form");
 const formLocalStorage = {};
 
-form.addEventListener ('input', onInputForm);
 form.addEventListener ('submit', onSubmitForm);
+form.addEventListener ('input', _.throttle(onInputForm,500));
 
-console.log(localStorage.length);
-
-function onSubmitForm() {    
+function onSubmitForm(event) {     
+    event.preventDefault(); 
     localStorage.clear("feedback-form-state");
+    console.log(textEmail.value);
+    console.log(textMassege.value);
+    textEmail.value="";
+    textMassege.value=""; 
 }
 
-function onInputForm() {    
-    
+function onInputForm() { 
     formLocalStorage.email=textEmail.value;
     formLocalStorage.massege=textMassege.value;
     localStorage.setItem("feedback-form-state",JSON.stringify(formLocalStorage));
-   
-};
+}   
+ 
 if (localStorage.getItem("feedback-form-state")) {
-    const a = localStorage.getItem("feedback-form-state");
-    textEmail.value=JSON.parse(a).email;
-    textMassege.value=JSON.parse(a).massege;
-   
+    const textLocalStorage = localStorage.getItem("feedback-form-state");
+    textEmail.value=JSON.parse(textLocalStorage).email;
+    textMassege.value=JSON.parse(textLocalStorage).massege;   
 }
+
