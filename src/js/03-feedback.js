@@ -9,8 +9,7 @@ form.addEventListener ('input', _.throttle(onInputForm,500));
 function onSubmitForm(event) {     
     event.preventDefault(); 
     localStorage.clear("feedback-form-state");
-    console.log(textEmail.value);
-    console.log(textMassege.value);
+    console.log(formLocalStorage);
     textEmail.value="";
     textMassege.value=""; 
 }
